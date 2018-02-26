@@ -1,0 +1,28 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+ name: lamp
+ labels:
+  app: lamp
+spec:
+ replicas: 2
+ selector:
+  matchLabels:
+   app: lamp
+ template:
+     metadata:
+      labels:
+       app: lamp
+     spec:
+      containers:
+      - name: lamp
+        image: rajadevops07/lamp
+        ports:
+        - containerPort: 80
+        livenessProbe:
+         httpGet:
+          path: /
+          port: 80
+         initialDelaySeconds: 10
+         periodSeconds: 5
+         timeoutSeconds: 30
